@@ -1,0 +1,14 @@
+import { DashboardLayout } from "../../components/DashboardLayout";
+import { GlassCard } from "../../components/GlassCard";
+import { Badge } from "../../components/ui/badge";
+import { Progress } from "../../components/ui/progress";
+import { BookOpen, Briefcase, FileText, Sparkles, TrendingUp } from "lucide-react";
+
+export function AIRecommendations() {
+  const jobs = [
+    ["Software Engineer Intern", "WSO2", "Colombo, Sri Lanka", 96],
+    ["Frontend Developer Intern", "99x", "Remote / Hybrid", 91],
+    ["Associate .NET Developer", "IFS", "Colombo", 88],
+  ] as const;
+  return <DashboardLayout role="jobseeker"><div className="space-y-6"><div><p className="text-sm text-[#D4AF37]">Dashboard / AI Recommendations</p><h1 className="mt-2 text-3xl font-semibold text-white">AI Recommendations</h1><p className="text-gray-400">Personalized job matches, career suggestions, learning paths, and resume improvements.</p></div><div className="grid lg:grid-cols-3 gap-6"><GlassCard className="lg:col-span-2 p-6"><h2 className="text-xl font-semibold text-white mb-5 flex gap-2"><Sparkles className="text-[#D4AF37]" />Recommended Jobs</h2><div className="space-y-4">{jobs.map(([title, company, location, match]) => <div key={title} className="rounded-xl border border-[#D4AF37]/10 bg-[#2D2D2D]/45 p-5"><div className="flex justify-between gap-4"><div><h3 className="text-white font-semibold">{title}</h3><p className="text-gray-400 text-sm">{company} • {location}</p></div><Badge className="bg-[#D4AF37]/15 text-[#D4AF37] border-[#D4AF37]/30">{match}% Skill Match</Badge></div><Progress value={match} className="mt-4" /></div>)}</div></GlassCard><GlassCard className="p-6"><h2 className="text-xl font-semibold text-white mb-5">Career Suggestions</h2>{["Target software engineering internships using React + .NET portfolio projects.", "Add two API-based projects to demonstrate backend confidence.", "Apply to hybrid Colombo roles with 85%+ match first."].map(x => <p key={x} className="mb-3 text-sm text-gray-300 rounded-lg bg-[#2D2D2D]/50 p-3">{x}</p>)}</GlassCard></div><div className="grid lg:grid-cols-3 gap-6">{[[BookOpen,"Learning Recommendations",["Advanced React patterns","ASP.NET Core Web APIs","System design fundamentals"]],[FileText,"Resume Improvement Suggestions",["Quantify project outcomes","Add GitHub portfolio link","Move core skills above education"]],[TrendingUp,"Skill Growth",["React: Advanced","SQL: Intermediate → Advanced","Cloud deployment basics"]]].map(([Icon,title,items]) => { const C=Icon as typeof BookOpen; return <GlassCard key={title as string} className="p-6"><C className="h-6 w-6 text-[#D4AF37] mb-3" /><h3 className="text-white font-semibold mb-4">{title as string}</h3><div className="space-y-2">{(items as string[]).map(i => <div key={i} className="text-sm text-gray-300 flex gap-2"><Briefcase className="h-4 w-4 text-[#D4AF37] shrink-0" />{i}</div>)}</div></GlassCard> } )}</div></div></DashboardLayout>;
+}
