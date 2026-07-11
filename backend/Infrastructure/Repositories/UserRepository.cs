@@ -12,11 +12,17 @@ public class UserRepository : GenericRepository<User>, IUserRepository
     {
     }
 
+    //public async Task<User?> GetByEmailAsync(string email)
+    //{
+        //return await _context.Users
+            //.FirstOrDefaultAsync(x => x.Email == email);
+    //}
+
     public async Task<User?> GetByEmailAsync(string email)
-    {
-        return await _context.Users
-            .FirstOrDefaultAsync(x => x.Email == email);
-    }
+{
+    return await _context.Users
+        .FirstOrDefaultAsync(u => u.Email == email);
+}
 
     public async Task<IEnumerable<User>> GetByRoleAsync(UserRole role)
     {

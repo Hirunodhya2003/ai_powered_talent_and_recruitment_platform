@@ -1,5 +1,6 @@
 using Domain.Entities;
 using Domain.Enums;
+using System.Threading.Tasks;
 
 namespace Domain.Interfaces;
 
@@ -12,4 +13,6 @@ public interface IUserRepository : IGenericRepository<User>
     Task<IEnumerable<User>> GetAllUsersAsync();
 
     Task<bool> IsEmailExistsAsync(string email);
+
+    
 }

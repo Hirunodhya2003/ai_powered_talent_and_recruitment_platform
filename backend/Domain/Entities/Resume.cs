@@ -11,4 +11,7 @@ public class Resume : BaseEntity
     public Guid UserId { get; set; }
 
     public User User { get; set; } = null!;
+
+    public ICollection<JobApplication> JobApplications { get; set; }
+    = new List<JobApplication>();
 }

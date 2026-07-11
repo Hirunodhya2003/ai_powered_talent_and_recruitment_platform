@@ -18,12 +18,41 @@ public class UnitOfWork : IUnitOfWork
         Jobs = new JobRepository(context);
         Organizations = new OrganizationRepository(context);
 
+        RefreshTokens = new RefreshTokenRepository(context);
+
+        CandidateSkills = new CandidateSkillRepository(context);
+
         // Remaining repositories
         Applications = new ApplicationRepository(context);
         Interviews = new InterviewRepository(context);
         Messages = new MessageRepository(context);
         Notifications = new NotificationRepository(context);
         AuditLogs = new AuditLogRepository(context);
+        Recruiters = new RecruiterRepository(context);
+
+        HiringManagers = new HiringManagerRepository(context);
+
+        TalentPools = new TalentPoolRepository(context);
+
+        Resumes = new ResumeRepository(context);
+
+        Educations = new EducationRepository(context);
+
+        Experiences = new ExperienceRepository(context);
+
+        Skills = new SkillRepository(context);
+
+        JobRequisitions = new JobRequisitionRepository(context);
+
+        HiringDecisions = new HiringDecisionRepository(context);
+
+        Evaluations = new EvaluationRepository(context);
+
+        InterviewFeedbacks = new InterviewFeedbackRepository(context);
+
+        CalendarEvents = new CalendarEventRepository(context);
+
+        //CandidateSkills = new CandidateSkillRepository(context);
     }
 
     public IUserRepository Users { get; }
@@ -31,6 +60,8 @@ public class UnitOfWork : IUnitOfWork
     public ICandidateRepository Candidates { get; }
 
     public IJobRepository Jobs { get; }
+
+    public IRefreshTokenRepository RefreshTokens { get; }
 
     public IApplicationRepository Applications { get; }
 
@@ -43,6 +74,32 @@ public class UnitOfWork : IUnitOfWork
     public IOrganizationRepository Organizations { get; }
 
     public IAuditLogRepository AuditLogs { get; }
+
+    public IRecruiterRepository Recruiters { get; }
+
+    public IHiringManagerRepository HiringManagers { get; }
+
+    public ITalentPoolRepository TalentPools { get; }
+
+    public IResumeRepository Resumes { get; }
+
+    public IEducationRepository Educations { get; }
+
+    public IExperienceRepository Experiences { get; }
+
+    public ISkillRepository Skills { get; }
+
+    public IJobRequisitionRepository JobRequisitions { get; }
+    
+    public IHiringDecisionRepository HiringDecisions { get; }
+
+    public IEvaluationRepository Evaluations { get; }
+
+    public IInterviewFeedbackRepository InterviewFeedbacks { get; }
+
+    public ICalendarEventRepository CalendarEvents { get; }
+
+    public ICandidateSkillRepository CandidateSkills { get; }
 
     public async Task<int> SaveChangesAsync()
     {
@@ -71,4 +128,6 @@ public class UnitOfWork : IUnitOfWork
             await _transaction.DisposeAsync();
         }
     }
+
+    
 }

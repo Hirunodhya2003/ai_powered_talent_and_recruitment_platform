@@ -2,11 +2,9 @@ namespace Domain.Enums;
 
 public enum ApplicationStatus
 {
-    Applied,
-    UnderReview,
+    Pending,
     Shortlisted,
     InterviewScheduled,
-    OfferReceived,
     Rejected,
-    Withdrawn
+    Hired
 }

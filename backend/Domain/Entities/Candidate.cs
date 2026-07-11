@@ -25,4 +25,26 @@ public class Candidate : BaseEntity
     public int ProfileCompleteness { get; set; }
 
     public User User { get; set; } = null!;
+
+    public ICollection<JobApplication> JobApplications { get; set; }
+    = new List<JobApplication>();
+
+    public string? LinkedInUrl { get; set; }
+
+public string? GithubUrl { get; set; }
+
+public string? PortfolioUrl { get; set; }
+
+public string? ProfileImageUrl { get; set; }
+
+public DateOnly? DateOfBirth { get; set; }
+
+public string? Gender { get; set; }
+
+public ICollection<CandidateSkill> CandidateSkills { get; set; }
+    = new List<CandidateSkill>();
+
+
+    //public ICollection<JobApplication> JobApplications { get; set; }
+   // = new List<JobApplication>();
 }

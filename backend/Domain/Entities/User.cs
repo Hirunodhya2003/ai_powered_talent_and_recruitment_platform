@@ -15,4 +15,8 @@ public class User : BaseEntity
     public UserRole Role { get; set; }
 
     public bool IsActive { get; set; } = true;
+
+    // Navigation Property
+    public ICollection<RefreshToken> RefreshTokens { get; set; }
+        = new List<RefreshToken>();
 }
