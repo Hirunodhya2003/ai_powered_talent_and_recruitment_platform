@@ -28,7 +28,8 @@ public JobsController(
 
     // GET: api/jobs
     //[Authorize(Roles = "Admin,Recruiter")]
-    [HttpGet]
+    [Authorize(Roles = "Admin,Recruiter,HiringManager,Candidate")]
+[HttpGet]
     public async Task<IActionResult> GetAllJobs()
     {
         var jobs = await _unitOfWork.Jobs.GetAllAsync();

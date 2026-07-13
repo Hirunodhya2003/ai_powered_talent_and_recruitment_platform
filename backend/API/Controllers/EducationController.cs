@@ -19,7 +19,11 @@ public class EducationController : ControllerBase
         _unitOfWork = unitOfWork;
     }
 
-    // GET: api/education
+    // ======================================
+    // Recruiter/Admin - Get All Educations
+    // ======================================
+
+    [Authorize(Roles = "Recruiter,Admin")]
     [HttpGet]
     public async Task<IActionResult> GetAllEducations()
     {
@@ -27,7 +31,30 @@ public class EducationController : ControllerBase
         return Ok(educations);
     }
 
-    // GET: api/education/{id}
+    // ======================================
+    // Candidate - Get My Educations
+    // ======================================
+
+    [Authorize(Roles = "Candidate")]
+    [HttpGet("my")]
+    public async Task<IActionResult> GetMyEducations()
+    {
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+        if (string.IsNullOrWhiteSpace(userIdClaim))
+            return Unauthorized(new { message = "Invalid token." });
+
+        var educations = await _unitOfWork.Educations
+            .GetByUserIdAsync(Guid.Parse(userIdClaim));
+
+        return Ok(educations);
+    }
+
+    // ======================================
+    // Recruiter/Admin - Get Education By Id
+    // ======================================
+
+    [Authorize(Roles = "Recruiter,Admin")]
     [HttpGet("{id}")]
     public async Task<IActionResult> GetEducationById(Guid id)
     {
@@ -39,18 +66,29 @@ public class EducationController : ControllerBase
         return Ok(education);
     }
 
-    // POST: api/education
+    // ======================================
+    // Candidate - Create Education
+    // ======================================
+
+    [Authorize(Roles = "Candidate")]
     [HttpPost]
     public async Task<IActionResult> CreateEducation(CreateEducationDto dto)
     {
         var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
         if (string.IsNullOrWhiteSpace(userIdClaim))
-            return Unauthorized(new { message = "User is not authenticated." });
+            return Unauthorized(new { message = "Invalid token." });
+
+        var userId = Guid.Parse(userIdClaim);
+
+        var user = await _unitOfWork.Users.GetByIdAsync(userId);
+
+        if (user == null)
+            return NotFound(new { message = "User not found." });
 
         var education = new Education
         {
-            UserId = Guid.Parse(userIdClaim),
+            UserId = userId,
             Institution = dto.Institution,
             Degree = dto.Degree,
             StartDate = dto.StartDate,
@@ -66,7 +104,11 @@ public class EducationController : ControllerBase
             education);
     }
 
-    // PUT: api/education/{id}
+    // ======================================
+    // Candidate - Update Own Education
+    // ======================================
+
+    [Authorize(Roles = "Candidate")]
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateEducation(Guid id, UpdateEducationDto dto)
     {
@@ -74,6 +116,11 @@ public class EducationController : ControllerBase
 
         if (education == null)
             return NotFound(new { message = "Education not found." });
+
+        var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+
+        if (education.UserId != userId)
+            return Forbid();
 
         education.Institution = dto.Institution;
         education.Degree = dto.Degree;
@@ -90,7 +137,11 @@ public class EducationController : ControllerBase
         });
     }
 
-    // DELETE: api/education/{id}
+    // ======================================
+    // Candidate - Delete Own Education
+    // ======================================
+
+    [Authorize(Roles = "Candidate")]
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteEducation(Guid id)
     {
@@ -98,6 +149,11 @@ public class EducationController : ControllerBase
 
         if (education == null)
             return NotFound(new { message = "Education not found." });
+
+        var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+
+        if (education.UserId != userId)
+            return Forbid();
 
         _unitOfWork.Educations.Delete(education);
         await _unitOfWork.SaveChangesAsync();

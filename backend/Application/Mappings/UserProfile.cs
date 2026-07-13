@@ -3,6 +3,8 @@ using Application.DTOs.Users;
 using Domain.Entities;
 using Application.DTOs.Jobs;
 //using Domain.Entities;
+using Application.DTOs.JobApplications;
+using Application.DTOs.JobRequisitions;
 
 namespace Application.Mappings;
 
@@ -20,6 +22,17 @@ public class UserProfile : Profile
             .ForMember(dest => dest.PasswordHash, opt => opt.Ignore());
 
         CreateMap<User, UpdateUserDto>();
+
+        CreateMap<JobApplication, JobApplicationResponseDto>();
+
+CreateMap<CreateJobApplicationDto, JobApplication>();
+
+CreateMap<UpdateJobApplicationDto, JobApplication>();
+
+CreateMap<JobRequisition, JobRequisitionResponseDto>()
+    .ForMember(
+        dest => dest.ApprovalStatus,
+        opt => opt.MapFrom(src => src.ApprovalStatus.ToString()));
 
         CreateMap<Job, JobResponseDto>()
     .ForMember(

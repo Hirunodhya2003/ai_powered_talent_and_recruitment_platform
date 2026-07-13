@@ -1,8 +1,9 @@
-namespace Domain.Entities;
-using Domain.Enums;
+namespace Application.DTOs.JobRequisitions;
 
-public class JobRequisition : BaseEntity
+public class JobRequisitionResponseDto
 {
+    public Guid Id { get; set; }
+
     public Guid HiringManagerId { get; set; }
 
     public Guid OrganizationId { get; set; }
@@ -21,12 +22,5 @@ public class JobRequisition : BaseEntity
 
     public string? JobDescription { get; set; }
 
-    //public string? ApprovalStatus { get; set; }
-    public RequisitionStatus ApprovalStatus { get; set; }
-    = RequisitionStatus.Draft;
-
-
-    public HiringManager HiringManager { get; set; } = null!;
-
-    public Organization Organization { get; set; } = null!;
+    public string ApprovalStatus { get; set; } = string.Empty;
 }
