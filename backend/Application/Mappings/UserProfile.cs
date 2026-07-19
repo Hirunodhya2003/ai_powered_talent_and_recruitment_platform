@@ -5,6 +5,10 @@ using Application.DTOs.Jobs;
 //using Domain.Entities;
 using Application.DTOs.JobApplications;
 using Application.DTOs.JobRequisitions;
+using Application.DTOs.Interviews;
+using Application.DTOs.Notifications;
+using Application.DTOs.InterviewFeedbacks;
+using Application.DTOs.HiringDecisions;
 
 namespace Application.Mappings;
 
@@ -28,6 +32,36 @@ public class UserProfile : Profile
 CreateMap<CreateJobApplicationDto, JobApplication>();
 
 CreateMap<UpdateJobApplicationDto, JobApplication>();
+
+CreateMap<Interview, InterviewResponseDto>();
+
+CreateMap<CreateInterviewDto, Interview>();
+
+CreateMap<UpdateInterviewDto, Interview>();
+
+CreateMap<Notification, NotificationResponseDto>();
+
+CreateMap<CreateNotificationDto, Notification>();
+
+CreateMap<UpdateNotificationDto, Notification>();
+
+CreateMap<Notification, NotificationResponseDto>();
+
+CreateMap<CreateNotificationDto, Notification>();
+
+CreateMap<UpdateNotificationDto, Notification>();
+
+CreateMap<InterviewFeedback, InterviewFeedbackResponseDto>();
+
+CreateMap<CreateInterviewFeedbackDto, InterviewFeedback>();
+
+CreateMap<UpdateInterviewFeedbackDto, InterviewFeedback>();
+
+CreateMap<CreateHiringDecisionDto, HiringDecision>();
+
+CreateMap<UpdateHiringDecisionDto, HiringDecision>();
+
+CreateMap<HiringDecision, HiringDecisionResponseDto>();
 
 CreateMap<JobRequisition, JobRequisitionResponseDto>()
     .ForMember(

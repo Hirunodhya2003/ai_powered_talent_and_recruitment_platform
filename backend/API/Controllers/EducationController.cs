@@ -87,13 +87,17 @@ public class EducationController : ControllerBase
             return NotFound(new { message = "User not found." });
 
         var education = new Education
-        {
-            UserId = userId,
-            Institution = dto.Institution,
-            Degree = dto.Degree,
-            StartDate = dto.StartDate,
-            EndDate = dto.EndDate
-        };
+{
+    UserId = userId,
+    Institution = dto.Institution,
+    Degree = dto.Degree,
+    FieldOfStudy = dto.FieldOfStudy,
+    StartDate = dto.StartDate,
+    EndDate = dto.EndDate,
+    IsCurrentlyStudying = dto.IsCurrentlyStudying,
+    Grade = dto.Grade,
+    Description = dto.Description
+};
 
         await _unitOfWork.Educations.AddAsync(education);
         await _unitOfWork.SaveChangesAsync();
@@ -123,9 +127,13 @@ public class EducationController : ControllerBase
             return Forbid();
 
         education.Institution = dto.Institution;
-        education.Degree = dto.Degree;
-        education.StartDate = dto.StartDate;
-        education.EndDate = dto.EndDate;
+education.Degree = dto.Degree;
+education.FieldOfStudy = dto.FieldOfStudy;
+education.StartDate = dto.StartDate;
+education.EndDate = dto.EndDate;
+education.IsCurrentlyStudying = dto.IsCurrentlyStudying;
+education.Grade = dto.Grade;
+education.Description = dto.Description;
 
         _unitOfWork.Educations.Update(education);
         await _unitOfWork.SaveChangesAsync();
